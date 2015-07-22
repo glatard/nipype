@@ -158,7 +158,7 @@ def get_boutiques_input(inputs,interface,input_name,spec,ignored_template_inputs
   # Now that temp values have been generated, set Boolean types to
   # Number (there is no Boolean type in Boutiques)
   if input['type'] == "Boolean":
-    input['type'] = "Number"
+    input['type'] = "String"
     
   return input
 
