@@ -72,8 +72,9 @@ def generate_boutiques_descriptor(module, interface_name, ignored_template_input
   tool_desc['command-line']   = "nipype_cmd "+str(module)+" "+interface_name+" "
   tool_desc['description']    = interface_name+", as implemented in Nipype (module: "+str(module)+", interface: "+interface_name+")."
   tool_desc['inputs']         = []
-  tool_desc['outputs']        = []
-  tool_desc['tool-version']   = interface.version
+  tool_desc['output-files']   = []
+  if interface.version:
+    tool_desc['tool-version']   = interface.version
   tool_desc['schema-version'] = '0.2-snapshot'
   if docker_image:
     tool_desc['docker-image'] = docker_image
@@ -92,12 +93,12 @@ def generate_boutiques_descriptor(module, interface_name, ignored_template_input
   for name,spec in sorted(outputs.traits(transient=None).items()):
     output = get_boutiques_output(name,interface,tool_desc['inputs'],verbose)
     if output['path-template'] != "":
-      tool_desc['outputs'].append(output)
+      tool_desc['output-files'].append(output)
       if verbose:
         print "-> Adding output "+output['name']
     elif verbose:
       print "xx Skipping output "+output['name']+" with no path template."
-  if tool_desc['outputs'] == []:
+  if tool_desc['output-files'] == []:
     raise Exception("Tool has no output.")
       
   # Removes all temporary values from inputs (otherwise they will
@@ -142,7 +143,7 @@ def get_boutiques_input(inputs,interface,input_name,spec,ignored_template_inputs
   else:
     input['optional']        = False
   if spec.usedefault:
-    input['default-value']   = spec.default_value()[1]
+    input['default-value']   = str(spec.default_value()[1])
 
     
   # Create unique, temporary value.
