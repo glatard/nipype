@@ -128,7 +128,7 @@ def get_boutiques_input(inputs,interface,input_name,spec,ignored_template_inputs
   spec_info         = spec.full_info(inputs, input_name, None)
   
   input     = {}
-  input['id']                = input_name
+  input['id']                = "input_"+input_name
   input['name']              = input_name.replace('_',' ').capitalize()
   input['type']              = get_type_from_spec_info(spec_info)
   input['list']              = is_list(spec_info)
@@ -179,7 +179,7 @@ def get_boutiques_output(name,interface,tool_inputs,verbose=False):
   """
   output = {}
   output['name']             = name.replace('_',' ').capitalize()
-  output['id']               = name
+  output['id']               = "output+"+name
   output['type']             = "File"
   output['path-template']    = ""
   output['optional']         = True # no real way to determine if an output is always produced, regardless of the input values.
