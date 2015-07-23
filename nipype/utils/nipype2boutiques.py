@@ -179,7 +179,7 @@ def get_boutiques_output(name,interface,tool_inputs,verbose=False):
   """
   output = {}
   output['name']             = name.replace('_',' ').capitalize()
-  output['id']               = "output+"+name
+  output['id']               = "output_"+name
   output['type']             = "File"
   output['path-template']    = ""
   output['optional']         = True # no real way to determine if an output is always produced, regardless of the input values.
